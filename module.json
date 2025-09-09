@@ -1,0 +1,18 @@
+{
+  "id": "shared-player-journal",
+  "title": "Shared Player Journal",
+  "description": "A module that automatically sets the permissions of journal entries in a predetermined folder to be owned by all players.",
+  "authors": [
+    {
+    "name": "Jonas Staveli"
+    }
+  ],
+  "scripts": [
+    "scripts/shared-player-journal.js"
+  ],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  }
+}
