@@ -34,13 +34,18 @@ class SharedPlayerJournal {
         return SharedPlayerJournal.isInTargetFolder(folder.folder, targetFolderName);
     }
 
-	static setDefaultPermissionToOwner(doc){
-		doc.update({
-			permission: {
-				default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-			}
-		});
-	}	
+	static async setDefaultPermissionToOwner(doc) {
+    try {
+        await doc.update({
+            permission: {
+                default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+            }
+        });
+    } catch (error) {
+        console.error("Shared Player Journal | Error setting permissions:", error);
+        ui.notifications.error("Failed to set journal permissions");
+    }
+}	
 }
 
 let socket; 
