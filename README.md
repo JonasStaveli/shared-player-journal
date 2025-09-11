@@ -9,7 +9,7 @@ A Foundry VTT module that automatically makes all players owner for journal entr
 
 ## Requirements
 - Foundry VTT v13 or higher
-- SocketLib module
+- SocketLib module (https://foundryvtt.com/packages/socketlib)
 
 ## Usage
 1. Go to Module Settings and set your desired shared folder name (default: "Shared")
