@@ -1,7 +1,7 @@
 {
   "id": "shared-player-journal",
   "title": "Shared Player Journal",
-  "description": "A module that automatically sets the permissions of journal entries in a predetermined folder to be owned by all players.",
+  "description": "A Foundry VTT module that automatically makes all players owner for journal entries in a designated folder.",
   "authors": [
     {
     "name": "Jonas Staveli"
@@ -22,6 +22,9 @@
     "minimum": "13",
     "verified": "13"
   },
+  "url": "https://github.com/jonasstaveli/shared-player-journal",
+  "manifest": "https://raw.githubusercontent.com/jonasstaveli/shared-player-journal/master/module.json",
+  "download": "https://github.com/jonasstaveli/shared-player-journal/releases/download/1.0.0/module.zip",
   "relationships": {
     "requires": [
       {
