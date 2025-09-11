@@ -1,29 +1,38 @@
 class SharedPlayerJournal {
-	static updateOwnership(obj, html, data){
-		//check if agrs are correct
-        //check if "CreateJournalEntry" is correct for hook
+	static updateOwnership(journalEntry, html, data){
+		// Get the folder name from settings
+		const folderName = game.settings.get("shared-player-journal", "folderName");
+
+		// Check if the journal entry is in a folder and if that folder matches our setting
+        if (journalEntry.folder?.name === folderName) {
+            SharedPlayerJournal.setDefaultPermissionToOwner(journalEntry);
+        }
+
 	};
 	
 	static setDefaultPermissionToOwner(doc){
 		doc.update({
 			permission: {
-				default: CONST.ENTITY_PERMISSIONS.OWNER,
+				default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
 			}
 		});
-	}
+	}	
 }
 
+let socket; 
 Hooks.once("socketlib.ready", () => {
 	socket = socketlib.registerModule("shared-player-journal");
 	socket.register("setDefaultPermissionToOwner", SharedPlayerJournal.setDefaultPermissionToOwner);
 });
 Hooks.once('init', () => {
-    game.settings.registerMenu("shared-player-journal", "folderName", {
+    game.settings.register("shared-player-journal", "folderName", {
         name: 'Shared folder name',
         hint: 'Name of the folder that will be automatically assign owner permission to all players to all entries',
         scope: 'world',
+        config: true,
         type: String,
+        default: "Shared"
     });
 });
 
-Hooks.on("CreateJournalEntry",SharedPlayerJournal.updateOwnership);
+Hooks.on("createJournalEntry", SharedPlayerJournal.updateOwnership);
