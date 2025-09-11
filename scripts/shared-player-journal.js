@@ -1,15 +1,39 @@
 class SharedPlayerJournal {
-	static updateOwnership(journalEntry, html, data){
+	static updateJournalEntryOwnership(journalEntry, html, data){
 		// Get the folder name from settings
 		const folderName = game.settings.get("shared-player-journal", "folderName");
 
-		// Check if the journal entry is in a folder and if that folder matches our setting
-        if (journalEntry.folder?.name === folderName) {
+		// Check if the journal entry is in the target folder or any of its subfolders
+        if (SharedPlayerJournal.isInTargetFolder(journalEntry.folder, folderName)) {
             SharedPlayerJournal.setDefaultPermissionToOwner(journalEntry);
         }
 
 	};
+
+	static updatePageOwnership(page, html, data) {
+        // Get the parent journal's folder
+        const parentJournal = page.parent;
+        if (!parentJournal) return;
+
+        // Get the folder name from settings
+        const folderName = game.settings.get("shared-player-journal", "folderName");
+
+        // Check if the parent journal is in the target folder or any of its subfolders
+        if (SharedPlayerJournal.isInTargetFolder(parentJournal.folder, folderName)) {
+            SharedPlayerJournal.setDefaultPermissionToOwner(page);
+        }
+    }
 	
+	static isInTargetFolder(folder, targetFolderName) {
+        if (!folder) return false;
+        
+        // Check if current folder matches
+        if (folder.name === targetFolderName) return true;
+        
+        // Recursively check parent folders
+        return SharedPlayerJournal.isInTargetFolder(folder.folder, targetFolderName);
+    }
+
 	static setDefaultPermissionToOwner(doc){
 		doc.update({
 			permission: {
@@ -35,4 +59,5 @@ Hooks.once('init', () => {
     });
 });
 
-Hooks.on("createJournalEntry", SharedPlayerJournal.updateOwnership);
+Hooks.on("createJournalEntry", SharedPlayerJournal.updateJournalEntryOwnership);
+Hooks.on("createJournalEntryPage", SharedPlayerJournal.updatePageOwnership);
