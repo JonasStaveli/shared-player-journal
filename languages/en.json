@@ -3,7 +3,7 @@
         "settings": {
             "folderName": {
                 "name": "Shared folder name",
-                "hint": "Name of the folder that will be automatically assign owner permission to all players to all entries"
+                "hint": "Name of the folder that will automatically assign owner permission to all players for all entries"
             }
         }
     }
