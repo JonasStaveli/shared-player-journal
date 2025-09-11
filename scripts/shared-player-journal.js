@@ -50,8 +50,8 @@ Hooks.once("socketlib.ready", () => {
 });
 Hooks.once('init', () => {
     game.settings.register("shared-player-journal", "folderName", {
-        name: 'Shared folder name',
-        hint: 'Name of the folder that will be automatically assign owner permission to all players to all entries',
+        name: game.i18n.localize("shared-player-journal.settings.folderName.name"),
+        hint: game.i18n.localize("shared-player-journal.settings.folderName.hint"),
         scope: 'world',
         config: true,
         type: String,
