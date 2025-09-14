@@ -42,7 +42,7 @@ class SharedPlayerJournal {
         console.log("CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER:", CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
         try {
             await doc.update({
-                permission: {
+                ownership: {
                     default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
                 }
             });
@@ -50,6 +50,7 @@ class SharedPlayerJournal {
             console.error("Shared Player Journal | Error setting permissions:", error);
             ui.notifications.error("Failed to set journal permissions");
         }
+        console.log("Current permissions after update:", doc.ownership);
     }	
 }
 
