@@ -17,14 +17,14 @@
       "path": "languages/en.json"
     }
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
   },
   "url": "https://github.com/jonasstaveli/shared-player-journal",
   "manifest": "https://raw.githubusercontent.com/jonasstaveli/shared-player-journal/master/module.json",
-  "download": "https://github.com/jonasstaveli/shared-player-journal/releases/download/1.0.0/shared-player-journal.zip",
+  "download": "https://github.com/jonasstaveli/shared-player-journal/releases/download/1.0.1/shared-player-journal.zip",
   "relationships": {
     "requires": [
       {
