@@ -1,5 +1,6 @@
 class SharedPlayerJournal {
 	static updateJournalEntryOwnership(journalEntry, html, data){
+        console.log("Shared Player Journal | updateJournalEntryOwnership called");
 		// Get the folder name from settings
 		const folderName = game.settings.get("shared-player-journal", "folderName");
 
@@ -11,6 +12,7 @@ class SharedPlayerJournal {
 	};
 
 	static updatePageOwnership(page, html, data) {
+        console.log("Shared Player Journal | updatePageOwnership called", page);
         // Get the parent journal's folder
         const parentJournal = page.parent;
         if (!parentJournal) return;
@@ -20,7 +22,7 @@ class SharedPlayerJournal {
 
         // Check if the parent journal is in the target folder or any of its subfolders
         if (SharedPlayerJournal.isInTargetFolder(parentJournal.folder, folderName)) {
-            SharedPlayerJournal.setDefaultPermissionToOwner(page);
+            socket.executeAsGM("setDefaultPermissionToOwner", page);
         }
     }
 	
@@ -35,17 +37,20 @@ class SharedPlayerJournal {
     }
 
 	static async setDefaultPermissionToOwner(doc) {
-    try {
-        await doc.update({
-            permission: {
-                default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
-            }
-        });
-    } catch (error) {
-        console.error("Shared Player Journal | Error setting permissions:", error);
-        ui.notifications.error("Failed to set journal permissions");
-    }
-}	
+        console.log("Shared Player Journal | Setting default permission to OWNER for document:", doc.name);
+        console.log("Current permissions:", doc.ownership);
+        console.log("CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER:", CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
+        try {
+            await doc.update({
+                permission: {
+                    default: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+                }
+            });
+        } catch (error) {
+            console.error("Shared Player Journal | Error setting permissions:", error);
+            ui.notifications.error("Failed to set journal permissions");
+        }
+    }	
 }
 
 let socket; 
